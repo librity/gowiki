@@ -23,12 +23,12 @@ You need to hace `GO` installed in your computer.
 
 ### Installing
 
-Clone the repo, start the server and open http://localhost: in your browser
+Clone the repo, start the server and open http://localhost:8080 in your browser
 
 ```bash
 $ git clone https://github.com/librity/gowiki
 $ cd gowiki
-$ go run wiki.go
+$ go run *.go
 ```
 
 Automagically analyze race conditions during compilation:
