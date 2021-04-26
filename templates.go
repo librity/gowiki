@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.go                                          :+:      :+:    :+:   */
+/*   templates.go                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/25 20:17:01 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/04/26 00:59:21 by lpaulo-m         ###   ########.fr       */
+/*   Created: 2021/04/26 00:58:15 by lpaulo-m          #+#    #+#             */
+/*   Updated: 2021/04/26 01:26:43 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 package main
 
 import (
-	"fmt"
-	"log"
+	"html/template"
 	"net/http"
 )
 
-const url = "localhost:8080"
+const templatesDir = "templates/"
 
-func sartServer() {
-	fmt.Println("=== HTTP Wiki server ===")
+var templates = template.Must(
+	template.ParseFiles(
+		tmplPath("edit"),
+		tmplPath("page")))
 
-	http.HandleFunc("/pages/", pagesHandler)
-	http.HandleFunc("/edit/", editHandler)
-	http.HandleFunc("/save/", saveHandler)
+func tmplPath(title string) string {
+	return templatesDir + title + ".html"
+}
 
-	fmt.Println("Listenin on http://" + url)
-	log.Fatal(http.ListenAndServe(url, nil))
+func renderTemplate(w http.ResponseWriter, page *Page, name string) {
+	err := templates.ExecuteTemplate(w, name+".html", page)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
