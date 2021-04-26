@@ -6,7 +6,7 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 20:10:35 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/04/26 00:11:20 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2021/04/26 00:52:12 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ type Page struct {
 }
 
 func (p *Page) save() error {
-	filePath := makeFilePath(p.Title)
+	filePath := getPagePath(p.Title)
 	return ioutil.WriteFile(filePath, p.Body, 0600)
 }
 
 func loadPage(title string) (*Page, error) {
-	filePath := makeFilePath(title)
+	filePath := getPagePath(title)
 	body, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return nil, err
@@ -42,7 +42,7 @@ func loadPage(title string) (*Page, error) {
 	return &Page{Title: title, Body: body, HTMLBody: htmlBody}, nil
 }
 
-func makeFilePath(title string) string {
+func getPagePath(title string) string {
 	return pagesDir + title + ".html"
 }
 

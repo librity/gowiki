@@ -50,3 +50,4 @@ $ go build -race
 
 - https://golangdocs.com/templates-in-golang
 - https://stackoverflow.com/questions/18175630/go-template-executetemplate-include-html
+- https://stackoverflow.com/questions/31467767/how-do-i-set-a-default-size-for-a-textarea-yet-still-allow-it-to-adjust-based-o
