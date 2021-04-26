@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   demo_server.go                                     :+:      :+:    :+:   */
+/*   server.go                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 20:17:01 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/04/25 23:09:33 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2021/04/25 23:13:03 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,20 @@ import (
 	"net/http"
 )
 
-const demoUrl = "localhost:8080"
+const url = "localhost:8080"
 
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+func pagesHandler(w http.ResponseWriter, r *http.Request) {
+	title := r.URL.Path[len("/pages/"):]
+	page, _ := loadPage(title)
+
+	fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", page.Title, page.Body)
 }
-func sartDemoServer() {
-	fmt.Println("=== HTTP demo server ===")
 
-	http.HandleFunc("/", homeHandler)
+func sartServer() {
+	fmt.Println("=== HTTP Wiki server ===")
 
-	fmt.Println("Listenin on http://" + demoUrl)
-	log.Fatal(http.ListenAndServe(demoUrl, nil))
+	http.HandleFunc("/", pagesHandler)
+
+	fmt.Println("Listenin on http://" + url)
+	log.Fatal(http.ListenAndServe(url, nil))
 }

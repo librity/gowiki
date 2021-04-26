@@ -6,7 +6,7 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:51:19 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/04/25 20:19:06 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2021/04/25 23:00:52 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@ package main
 func main() {
 	pageDemo()
 
-	sartDemoServer()
+	// sartDemoServer()
+	sartServer()
 }

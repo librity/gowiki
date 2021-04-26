@@ -6,7 +6,7 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 20:10:35 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/04/25 20:18:11 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2021/04/25 23:12:59 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ import (
 	"fmt"
 	"io/ioutil"
 )
+
+const pagesDir = "pages/"
 
 type Page struct {
 	Title string
@@ -38,14 +40,14 @@ func loadPage(title string) (*Page, error) {
 }
 
 func makeFilename(title string) string {
-	return "pages/" + title + ".txt"
+	return pagesDir + title + ".html"
 }
 
 func pageDemo() {
 	fmt.Println("=== Page demo ===")
-	p1 := &Page{Title: "Test page", Body: []byte("This is a simple page")}
+	p1 := &Page{Title: "test_page", Body: []byte("This is a simple page")}
 	p1.save()
 
-	p2, _ := loadPage("Test page")
+	p2, _ := loadPage("test_page")
 	fmt.Println(string(p2.Body))
 }
