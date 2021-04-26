@@ -6,21 +6,45 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:59:07 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/04/26 01:26:37 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2021/04/26 02:49:06 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 package main
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
+	"regexp"
 )
 
-func pagesHandler(w http.ResponseWriter, r *http.Request) {
+var validPath = regexp.MustCompile("^/(pages|edit|save)/([a-zA-Z0-9]+)$")
+
+func getTitle(w http.ResponseWriter, r *http.Request) (string, error) {
+	match := validPath.FindStringSubmatch(r.URL.Path)
+	if match == nil {
+		http.NotFound(w, r)
+		return "", errors.New("invalid Page Title")
+	}
+
+	return match[2], nil
+}
+
+func makeHandler(callback func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		title, err := getTitle(w, r)
+		if err != nil {
+			return
+		}
+
+		callback(w, r, title)
+	}
+}
+
+func pagesHandler(w http.ResponseWriter, r *http.Request, title string) {
 	fmt.Println("Handling pages request", r.URL.Path)
 
-	title := r.URL.Path[len("/pages/"):]
 	page, err := loadPage(title)
 	if err != nil {
 		http.Redirect(w, r, "/edit/"+title, http.StatusFound)
@@ -30,10 +54,9 @@ func pagesHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, page, "page")
 }
 
-func editHandler(w http.ResponseWriter, r *http.Request) {
+func editHandler(w http.ResponseWriter, r *http.Request, title string) {
 	fmt.Println("Handling edit request", r.URL.Path)
 
-	title := r.URL.Path[len("/edit/"):]
 	page, err := loadPage(title)
 	if err != nil {
 		page = &Page{Title: title}
@@ -42,10 +65,9 @@ func editHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, page, "edit")
 }
 
-func saveHandler(w http.ResponseWriter, r *http.Request) {
+func saveHandler(w http.ResponseWriter, r *http.Request, title string) {
 	fmt.Println("Handling save request", r.URL.Path)
 
-	title := r.URL.Path[len("/save/"):]
 	body := r.FormValue("body")
 	page := &Page{Title: title, Body: []byte(body)}
 
