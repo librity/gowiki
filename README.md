@@ -44,5 +44,9 @@ $ go build -race
 ## Docs <a name = "docs"></a>
 
 - https://golang.org/pkg/
+- https://golang.org/pkg/html/template/
 
 ## Resources <a name = "resources"></a>
+
+- https://golangdocs.com/templates-in-golang
+- https://stackoverflow.com/questions/18175630/go-template-executetemplate-include-html

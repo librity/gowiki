@@ -6,7 +6,7 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 20:10:35 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/04/25 23:12:59 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2021/04/26 00:11:20 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,43 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"io/ioutil"
 )
 
 const pagesDir = "pages/"
 
 type Page struct {
-	Title string
-	Body  []byte
+	Title    string
+	Body     []byte
+	HTMLBody template.HTML
 }
 
 func (p *Page) save() error {
-	filename := makeFilename(p.Title)
-	return ioutil.WriteFile(filename, p.Body, 0600)
+	filePath := makeFilePath(p.Title)
+	return ioutil.WriteFile(filePath, p.Body, 0600)
 }
 
 func loadPage(title string) (*Page, error) {
-	filename := makeFilename(title)
-	body, err := ioutil.ReadFile(filename)
+	filePath := makeFilePath(title)
+	body, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return nil, err
 	}
+	htmlBody := template.HTML(body)
 
-	return &Page{Title: title, Body: body}, nil
+	return &Page{Title: title, Body: body, HTMLBody: htmlBody}, nil
 }
 
-func makeFilename(title string) string {
+func makeFilePath(title string) string {
 	return pagesDir + title + ".html"
 }
 
 func pageDemo() {
 	fmt.Println("=== Page demo ===")
-	p1 := &Page{Title: "test_page", Body: []byte("This is a simple page")}
+	p1 := &Page{Title: "test", Body: []byte("This is a simple page")}
 	p1.save()
 
-	p2, _ := loadPage("test_page")
+	p2, _ := loadPage("test")
 	fmt.Println(string(p2.Body))
 }
