@@ -4,8 +4,6 @@
 
 - [About](#about)
 - [Getting Started](#getting_started)
-- [Usage](#usage)
-- [Libs](#libs)
 - [Docs](#docs)
 - [Resources](#resources)
 
@@ -36,10 +34,6 @@ Automagically analyze race conditions during compilation:
 ```bash
 $ go build -race
 ```
-
-## Usage <a name = "usage"></a>
-
-## Libs <a name = "libs"></a>
 
 ## Docs <a name = "docs"></a>
 
