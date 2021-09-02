@@ -17,7 +17,7 @@ A wiki web app in pure GO.
 
 ### Prerequisites
 
-You need to hace `GO` installed in your computer.
+Install the latest version of `Go` in your machine.
 
 ### Installing
 
