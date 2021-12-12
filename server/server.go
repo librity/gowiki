@@ -6,11 +6,11 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 20:17:01 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/12/11 23:23:53 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2021/12/11 23:44:35 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-package main
+package server
 
 import (
 	"fmt"
@@ -21,16 +21,16 @@ import (
 
 var port = os.Getenv("PORT")
 
-func sartServer() {
+func Start() {
 	fmt.Println("=== HTTP Wiki server ===")
 
 	if port == "" {
 		port = "8080"
 	}
 
-	http.HandleFunc("/pages/", makeHandler(pagesHandler))
-	http.HandleFunc("/edit/", makeHandler(editHandler))
-	http.HandleFunc("/save/", makeHandler(saveHandler))
+	http.HandleFunc("/pages/", makeHandler(showPageHandler))
+	http.HandleFunc("/edit/", makeHandler(editPageHandler))
+	http.HandleFunc("/save/", makeHandler(savePageHandler))
 
 	fmt.Println("Listening on http://localhost:" + port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))

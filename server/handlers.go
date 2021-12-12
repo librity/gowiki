@@ -6,11 +6,11 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:59:07 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/04/26 02:49:06 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2021/12/11 23:44:58 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-package main
+package server
 
 import (
 	"errors"
@@ -42,7 +42,7 @@ func makeHandler(callback func(http.ResponseWriter, *http.Request, string)) http
 	}
 }
 
-func pagesHandler(w http.ResponseWriter, r *http.Request, title string) {
+func showPageHandler(w http.ResponseWriter, r *http.Request, title string) {
 	fmt.Println("Handling pages request", r.URL.Path)
 
 	page, err := loadPage(title)
@@ -51,10 +51,10 @@ func pagesHandler(w http.ResponseWriter, r *http.Request, title string) {
 		return
 	}
 
-	renderTemplate(w, page, "page")
+	renderTemplate(w, page, "show_page")
 }
 
-func editHandler(w http.ResponseWriter, r *http.Request, title string) {
+func editPageHandler(w http.ResponseWriter, r *http.Request, title string) {
 	fmt.Println("Handling edit request", r.URL.Path)
 
 	page, err := loadPage(title)
@@ -62,10 +62,10 @@ func editHandler(w http.ResponseWriter, r *http.Request, title string) {
 		page = &Page{Title: title}
 	}
 
-	renderTemplate(w, page, "edit")
+	renderTemplate(w, page, "edit_page")
 }
 
-func saveHandler(w http.ResponseWriter, r *http.Request, title string) {
+func savePageHandler(w http.ResponseWriter, r *http.Request, title string) {
 	fmt.Println("Handling save request", r.URL.Path)
 
 	body := r.FormValue("body")

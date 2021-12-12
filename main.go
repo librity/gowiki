@@ -6,15 +6,17 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:51:19 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/12/11 23:04:39 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2021/12/11 23:37:38 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 package main
 
-func main() {
-	// pageDemo()
-	// sartDemoServer()
+import "github.com/librity/gowiki/server"
 
-	sartServer()
+func main() {
+	// server.Demo()
+	// server.sartDemoServer()
+
+	server.Start()
 }

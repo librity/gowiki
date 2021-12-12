@@ -6,11 +6,11 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 20:10:35 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/04/26 00:52:12 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2021/12/11 23:37:01 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-package main
+package server
 
 import (
 	"fmt"
@@ -46,7 +46,7 @@ func getPagePath(title string) string {
 	return pagesDir + title + ".html"
 }
 
-func pageDemo() {
+func PageDemo() {
 	fmt.Println("=== Page demo ===")
 	p1 := &Page{Title: "test", Body: []byte("This is a simple page")}
 	p1.save()

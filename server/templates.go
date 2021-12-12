@@ -6,11 +6,11 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:58:15 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/04/26 01:26:43 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2021/12/11 23:45:13 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-package main
+package server
 
 import (
 	"html/template"
@@ -21,8 +21,11 @@ const templatesDir = "templates/"
 
 var templates = template.Must(
 	template.ParseFiles(
-		tmplPath("edit"),
-		tmplPath("page")))
+		tmplPath("pages"),
+		tmplPath("show_page"),
+		tmplPath("new_page"),
+		tmplPath("edit_page"),
+	))
 
 func tmplPath(title string) string {
 	return templatesDir + title + ".html"
