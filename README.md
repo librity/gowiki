@@ -46,3 +46,8 @@ $ go build -race
 - https://stackoverflow.com/questions/18175630/go-template-executetemplate-include-html
 - https://stackoverflow.com/questions/31467767/how-do-i-set-a-default-size-for-a-textarea-yet-still-allow-it-to-adjust-based-o
 - https://stackoverflow.com/questions/52500451/golang-template-is-undefined
+
+### Heroku Deploy
+
+- https://github.com/heroku/go-getting-started
+- https://devcenter.heroku.com/articles/getting-started-with-go

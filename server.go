@@ -6,7 +6,7 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 20:17:01 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/04/26 02:43:52 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2021/12/11 23:11:55 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,23 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 )
 
-const url = "localhost:8080"
+var port = os.Getenv("PORT")
 
 func sartServer() {
 	fmt.Println("=== HTTP Wiki server ===")
+
+	if port == "" {
+		port = "8080"
+	}
 
 	http.HandleFunc("/pages/", makeHandler(pagesHandler))
 	http.HandleFunc("/edit/", makeHandler(editHandler))
 	http.HandleFunc("/save/", makeHandler(saveHandler))
 
-	fmt.Println("Listenin on http://" + url)
+	url := "localhost:" + port
+	fmt.Println("Listening on http://" + url)
 	log.Fatal(http.ListenAndServe(url, nil))
 }
