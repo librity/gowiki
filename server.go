@@ -6,7 +6,7 @@
 /*   By: lpaulo-m <lpaulo-m@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 20:17:01 by lpaulo-m          #+#    #+#             */
-/*   Updated: 2021/12/11 23:11:55 by lpaulo-m         ###   ########.fr       */
+/*   Updated: 2021/12/11 23:23:53 by lpaulo-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ func sartServer() {
 	http.HandleFunc("/edit/", makeHandler(editHandler))
 	http.HandleFunc("/save/", makeHandler(saveHandler))
 
-	url := "localhost:" + port
-	fmt.Println("Listening on http://" + url)
-	log.Fatal(http.ListenAndServe(url, nil))
+	fmt.Println("Listening on http://localhost:" + port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
